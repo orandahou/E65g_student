@@ -9,7 +9,14 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    @IBOutlet weak var gridView: GridView!
+    
+    @IBAction func step(_ sender: UIButton) {
+        gridView.grid = gridView.grid.next()
+        gridView.setNeedsDisplay()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -20,6 +27,4 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
 }
-
