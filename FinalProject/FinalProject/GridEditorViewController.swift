@@ -22,6 +22,7 @@ class GridEditorViewController: UIViewController, GridViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.isNavigationBarHidden = false
+        tabBarController?.tabBar.isHidden = true
         engine = StandardEngine.engine
         gridView.gridDataSource = self
         engine.reset()
@@ -48,5 +49,14 @@ class GridEditorViewController: UIViewController, GridViewDataSource {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @IBAction func cancel(_ sender: UIBarButtonItem) {
+        engine.reset()
+        gridView.setNeedsDisplay()
+        navigationController?.popViewController(animated: true)
+    }
 
+    @IBAction func save(_ sender: UIBarButtonItem) {
+        navigationController?.popViewController(animated: true)
+    }
 }

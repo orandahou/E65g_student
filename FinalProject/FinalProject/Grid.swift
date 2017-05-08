@@ -157,6 +157,7 @@ protocol EngineProtocol {
     var cols: Int { get set }
     init(rows: Int, cols: Int)
     func step() -> GridProtocol
+    func save(title: String)
     func reset()
 }
 
@@ -201,6 +202,18 @@ class StandardEngine: EngineProtocol {
                              userInfo: ["engine" : self])
         nc.post(n)
         return grid
+    }
+    
+    func save(title: String) {
+        var positions = [[Int]]()
+        for row in 0 ..< grid.size.rows {
+            for col in 0 ..< grid.size.cols {
+                if grid[row,col].isAlive {
+                    positions.append([row, col])
+                }
+            }
+        }
+        data[0][title] = positions
     }
     
     func reset() {

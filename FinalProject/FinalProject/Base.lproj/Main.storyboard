@@ -41,7 +41,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FOn-N0-bMU" userLabel="Size View">
-                                <rect key="frame" x="0.0" y="20" width="375" height="120"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="120"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9tD-3B-b3h" userLabel="Column View">
                                         <rect key="frame" x="187.5" y="0.0" width="187.5" height="120"/>
@@ -123,9 +123,9 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mla-Sl-mq9" userLabel="Refresh Rate View">
-                                <rect key="frame" x="0.0" y="140" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="184" width="375" height="50"/>
                                 <subviews>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="w0F-zz-20K" userLabel="Refresh Rate Slider">
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.10000000000000001" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="w0F-zz-20K" userLabel="Refresh Rate Slider">
                                         <rect key="frame" x="113" y="10" width="199" height="31"/>
                                         <connections>
                                             <action selector="refreshSliderMove:" destination="9pv-A4-QxB" eventType="valueChanged" id="EcK-lW-Oex"/>
@@ -158,18 +158,18 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vMX-XH-vUk">
-                                <rect key="frame" x="0.0" y="190" width="375" height="428"/>
+                                <rect key="frame" x="0.0" y="234" width="375" height="384"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="basic" textLabel="x16-3I-ZOC" style="IBUITableViewCellStyleDefault" id="DiC-kh-yGK">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DiC-kh-yGK" id="N7n-9t-ZdB">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="x16-3I-ZOC">
-                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
+                                                    <rect key="frame" x="15" y="0.0" width="325" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -205,8 +205,14 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Instrumentation" image="first" selectedImage="first" id="acW-dT-cKf"/>
-                    <navigationItem key="navigationItem" id="QIC-Nv-CXi"/>
-                    <nil key="simulatedTopBarMetrics"/>
+                    <navigationItem key="navigationItem" id="hBX-7u-KJl">
+                        <barButtonItem key="rightBarButtonItem" title="+" id="K5f-db-rvt" userLabel="+">
+                            <connections>
+                                <action selector="plus:" destination="9pv-A4-QxB" id="bCK-tG-n9d"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="colStepper" destination="IGo-Ec-9QL" id="jdw-pe-Eti"/>
                         <outlet property="colTextField" destination="Zvp-Ld-XSx" id="VNr-5L-Vfc"/>
@@ -267,7 +273,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Configuration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ydk-ie-Xsu" userLabel="Config Value">
-                                <rect key="frame" x="16" y="28" width="343" height="118"/>
+                                <rect key="frame" x="16" y="72" width="343" height="74"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -288,6 +294,18 @@
                             <constraint firstItem="SYJ-Qn-hWe" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Or9-7S-AKC" secondAttribute="leading" constant="8" id="vAf-17-KTW"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="flg-XG-uYq">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="QKP-QM-P1R" userLabel="Cancel">
+                            <connections>
+                                <action selector="cancel:" destination="lcV-ij-0ZT" id="ZNC-FB-m0p"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="kUL-5N-zgx" userLabel="Save">
+                            <connections>
+                                <action selector="save:" destination="lcV-ij-0ZT" id="3V3-Tw-jO4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="configValueLabel" destination="Ydk-ie-Xsu" id="6iv-pT-Zch"/>
                         <outlet property="gridView" destination="SYJ-Qn-hWe" id="xny-Tb-viI"/>
@@ -358,10 +376,20 @@
                                     <action selector="reset:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="5Qk-gT-VC9"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S4l-38-SLl">
+                                <rect key="frame" x="168.5" y="20" width="37" height="126"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="save:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="XVA-n3-nOK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="S4l-38-SLl" firstAttribute="height" secondItem="GFA-g1-U9j" secondAttribute="height" id="3Zx-co-vxr"/>
                             <constraint firstItem="T8s-eY-q5C" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="4FK-NV-eLs"/>
+                            <constraint firstItem="S4l-38-SLl" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="FiZ-GZ-EeR"/>
                             <constraint firstItem="GFA-g1-U9j" firstAttribute="centerY" secondItem="Ugj-C6-Ccn" secondAttribute="centerY" id="Ogz-5F-hKl"/>
                             <constraint firstItem="GFA-g1-U9j" firstAttribute="height" secondItem="Ugj-C6-Ccn" secondAttribute="height" id="OmO-Os-Sm4"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="T8s-eY-q5C" secondAttribute="trailing" constant="8" id="WtH-fG-i5d"/>
@@ -369,9 +397,12 @@
                             <constraint firstItem="Ugj-C6-Ccn" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" id="gzG-Ss-jm0"/>
                             <constraint firstItem="T8s-eY-q5C" firstAttribute="centerY" secondItem="QS5-Rx-YEW" secondAttribute="centerY" id="hH6-q6-mRe"/>
                             <constraint firstItem="T8s-eY-q5C" firstAttribute="top" secondItem="Ugj-C6-Ccn" secondAttribute="bottom" constant="8" id="iGb-6S-OnQ"/>
+                            <constraint firstItem="S4l-38-SLl" firstAttribute="height" secondItem="Ugj-C6-Ccn" secondAttribute="height" id="ioB-t9-izV"/>
                             <constraint firstItem="T8s-eY-q5C" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="QS5-Rx-YEW" secondAttribute="leading" constant="8" id="sZv-bK-Y9c"/>
                             <constraint firstItem="Djb-ko-YwX" firstAttribute="top" relation="greaterThanOrEqual" secondItem="T8s-eY-q5C" secondAttribute="bottom" constant="8" id="uei-kh-xTL"/>
                             <constraint firstItem="GFA-g1-U9j" firstAttribute="trailing" secondItem="QS5-Rx-YEW" secondAttribute="trailingMargin" id="vIO-BZ-tjc"/>
+                            <constraint firstItem="T8s-eY-q5C" firstAttribute="top" secondItem="S4l-38-SLl" secondAttribute="bottom" constant="8" id="vkp-P5-bWk"/>
+                            <constraint firstItem="S4l-38-SLl" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" id="xH3-LV-5ho"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Simulation" image="second" selectedImage="second" id="cPa-gy-q4n"/>

@@ -67,7 +67,8 @@ class InstrumentationViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.isNavigationBarHidden = true
+        tabBarController?.tabBar.isHidden = false
+        tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -79,7 +80,6 @@ class InstrumentationViewController: UIViewController, UITableViewDelegate, UITa
         engine.rows = Int(sender.value)
         engine.grid = Grid(Int(sender.value), Int(sender.value))
         rowTextField.text = String(engine.rows)
-        _ = engine.step()
     }
     
     @IBAction func stepColSize(_ sender: UIStepper) {
@@ -89,22 +89,32 @@ class InstrumentationViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     @IBAction func refreshSwitchToggle(_ sender: UISwitch) {
-        if sender.isOn == true {
-            engine.refreshRate = 1.0
-            refreshSlider.value = 1.0
+        if sender.isOn {
+            engine.refreshRate = 1.0 / (Double(refreshSlider.value))
         } else {
             engine.refreshRate = 0.0
-            refreshSlider.value = 0.0
         }
     }
     
     @IBAction func refreshSliderMove(_ sender: UISlider) {
-        engine.refreshRate = Double(sender.value)
-        if sender.value > 0.0 {
-            refreshSwitch.setOn(true, animated: true)
+        if refreshSwitch.isOn {
+            engine.refreshRate = 0.0
+            engine.refreshRate = 1.0 / (Double(refreshSlider.value))
         } else {
-            refreshSwitch.setOn(false, animated: true)
+            engine.refreshRate = 0.0
         }
+    }
+    
+    @IBAction func plus(_ sender: UIBarButtonItem) {
+        // Adapted from https://www.hackingwithswift.com/example-code/uikit/how-to-add-a-uitextfield-to-a-uialertcontroller
+        let alertController = UIAlertController(title: "Enter Configuration Title", message: nil, preferredStyle: .alert)
+        alertController.addTextField()
+        let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alertController] _ in
+            self.engine.save(title: alertController.textFields![0].text!)
+            self.tableView.reloadData()
+        }
+        alertController.addAction(submitAction)
+        present(alertController, animated: true)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

@@ -54,6 +54,17 @@ class SimulationViewController: UIViewController, GridViewDataSource, EngineDele
         gridView.setNeedsDisplay()
     }
     
+    @IBAction func save(_ sender: Any) {
+        // Adapted from https://www.hackingwithswift.com/example-code/uikit/how-to-add-a-uitextfield-to-a-uialertcontroller
+        let alertController = UIAlertController(title: "Enter Configuration Title", message: nil, preferredStyle: .alert)
+        alertController.addTextField()
+        let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alertController] _ in
+            self.engine.save(title: alertController.textFields![0].text!)
+        }
+        alertController.addAction(submitAction)
+        present(alertController, animated: true)
+    }
+    
     @IBAction func reset(_ sender: Any) {
         engine.reset()
         gridView.setNeedsDisplay()
