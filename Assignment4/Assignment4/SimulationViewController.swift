@@ -1,5 +1,5 @@
 //
-//  SecondViewController.swift
+//  SimulationViewController.swift
 //  Assignment4
 //
 //  Created by Ash Raj on 5/4/17.
@@ -11,11 +11,12 @@ import UIKit
 class SimulationViewController: UIViewController, GridViewDataSource, EngineDelegate {
     
     @IBOutlet weak var gridView: GridView!
+    
     var engine: StandardEngine!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         engine = StandardEngine.engine
-        gridView.size = engine.grid.size.rows
         engine.delegate = self
         gridView.gridDataSource = self
         
@@ -27,6 +28,12 @@ class SimulationViewController: UIViewController, GridViewDataSource, EngineDele
             queue: nil) { (n) in
                 self.gridView.setNeedsDisplay()
             }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        gridView.rows = engine.grid.size.rows
+        gridView.cols = engine.grid.size.cols
+        gridView.setNeedsDisplay()
     }
     
     func engineDidUpdate(withGrid: GridProtocol) {
@@ -44,6 +51,8 @@ class SimulationViewController: UIViewController, GridViewDataSource, EngineDele
 
     @IBAction func next(_ sender: Any) {
         _ = engine.step()
+        gridView.rows = engine.grid.size.rows
+        gridView.cols = engine.grid.size.cols
         gridView.setNeedsDisplay()
     }
 

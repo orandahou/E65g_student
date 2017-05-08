@@ -14,7 +14,8 @@ public protocol GridViewDataSource {
 
 @IBDesignable class GridView: UIView {
     
-    @IBInspectable var size = 10
+    @IBInspectable var rows = 10
+    @IBInspectable var cols = 10
     
     var gridDataSource: GridViewDataSource?
     
@@ -32,14 +33,16 @@ public protocol GridViewDataSource {
     }
     
     func drawLines(_ rect: CGRect) {
-        (0 ... size + 1).forEach {
+        (0 ... rows + 1).forEach {
             drawLine(
-                start: CGPoint(x: CGFloat($0) / CGFloat(size) * rect.size.width, y: 0.0),
-                end: CGPoint(x: CGFloat($0) / CGFloat(size) * rect.size.width, y: rect.size.height)
+                start: CGPoint(x: CGFloat($0) / CGFloat(rows) * rect.size.width, y: 0.0),
+                end: CGPoint(x: CGFloat($0) / CGFloat(rows) * rect.size.width, y: rect.size.height)
             )
+        }
+        (0 ... cols + 1).forEach {
             drawLine(
-                start: CGPoint(x: 0.0, y: CGFloat($0) / CGFloat(size) * rect.size.height),
-                end: CGPoint(x: rect.size.width, y: CGFloat($0) / CGFloat(size) * rect.size.height)
+                start: CGPoint(x: 0.0, y: CGFloat($0) / CGFloat(cols) * rect.size.height),
+                end: CGPoint(x: rect.size.width, y: CGFloat($0) / CGFloat(cols) * rect.size.height)
             )
         }
     }
@@ -55,11 +58,11 @@ public protocol GridViewDataSource {
     
     func drawOvals(_ rect: CGRect) {
         let ovalSize = CGSize(
-            width: rect.size.width / CGFloat(size),
-            height: rect.size.height / CGFloat(size)
+            width: rect.size.width / CGFloat(rows),
+            height: rect.size.height / CGFloat(cols)
         )
-        (0 ..< size).forEach { i in
-            (0 ..< size).forEach { j in
+        (0 ..< cols).forEach { i in
+            (0 ..< rows).forEach { j in
                 let ovalOrigin = CGPoint(
                     x: rect.origin.x + (CGFloat(j) * ovalSize.width + gridWidth),
                     y: rect.origin.y + (CGFloat(i) * ovalSize.height + gridWidth)
@@ -100,6 +103,11 @@ public protocol GridViewDataSource {
     var lastTouchedPosition: GridPosition?
     
     func process(touches: Set<UITouch>) -> GridPosition? {
+        let touchY = touches.first!.location(in: self.superview).y
+        let touchX = touches.first!.location(in: self.superview).x
+        guard touchX > frame.origin.x && touchX < (frame.origin.x + frame.size.width) else { return nil }
+        guard touchY > frame.origin.y && touchY < (frame.origin.y + frame.size.height) else { return nil }
+        
         guard touches.count == 1 else { return nil }
         let pos = convert(touch: touches.first!)
         
@@ -119,10 +127,10 @@ public protocol GridViewDataSource {
     func convert(touch: UITouch) -> GridPosition {
         let touchY = touch.location(in: self).y
         let gridHeight = frame.size.height
-        let row = touchY / gridHeight * CGFloat(size)
+        let row = touchY / gridHeight * CGFloat(rows)
         let touchX = touch.location(in: self).x
         let gridWidth = frame.size.width
-        let col = touchX / gridWidth * CGFloat(size)
+        let col = touchX / gridWidth * CGFloat(cols)
         
         return GridPosition(row: Int(row), col: Int(col))
     }
